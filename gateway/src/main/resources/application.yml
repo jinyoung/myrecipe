@@ -1,0 +1,82 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: Customer Management
+          uri: http://localhost:8082
+          predicates:
+            - Path=/customers/**, 
+        - id: Recipe and Manual Management
+          uri: http://localhost:8083
+          predicates:
+            - Path=/recipes/**, /manuals/**, 
+        - id: Delivery and Courier Management
+          uri: http://localhost:8085
+          predicates:
+            - Path=/deliveries/**, 
+        - id: Payment Management
+          uri: http://localhost:8088
+          predicates:
+            - Path=/payments/**, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: Customer Management
+          uri: http://customerManagement:8080
+          predicates:
+            - Path=/customers/**, 
+        - id: Recipe and Manual Management
+          uri: http://recipeAndManualManagement:8080
+          predicates:
+            - Path=/recipes/**, /manuals/**, 
+        - id: Delivery and Courier Management
+          uri: http://deliveryAndCourierManagement:8080
+          predicates:
+            - Path=/deliveries/**, 
+        - id: Payment Management
+          uri: http://paymentManagement:8080
+          predicates:
+            - Path=/payments/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080

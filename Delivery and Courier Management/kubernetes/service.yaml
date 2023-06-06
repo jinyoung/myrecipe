@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: Delivery and Courier Management
+  labels:
+    app: Delivery and Courier Management
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: Delivery and Courier Management

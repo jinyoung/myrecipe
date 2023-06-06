@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: Recipe and Manual Management
+  labels:
+    app: Recipe and Manual Management
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: Recipe and Manual Management
